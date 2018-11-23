@@ -12,6 +12,12 @@ var FONT_SIZE = 16;
 var FONT_GAP = 10;
 var BAR_WIDTH = 40;
 var BAR_GAP = 50;
+var BAR_X = CLOUD_X + BAR_GAP;
+var ELEM_WIDTH = BAR_WIDTH + BAR_GAP;
+var TIME_Y = MESSAGE_HEIGHT + (MESSAGE_GAP * 1) + (FONT_SIZE * 1);
+var NAME_Y = MESSAGE_HEIGHT + (MESSAGE_GAP * 2) + (FONT_SIZE * 2) + HISTOGRAM_HEIGHT;
+var SHADOW_X = CLOUD_X + SHADOW_GAP;
+var SHADOW_Y = CLOUD_Y + SHADOW_GAP;
 
 var renderCloud = function (ctx, x, y, color) {
   ctx.fillStyle = color;
@@ -35,6 +41,7 @@ var renderResults = function (ctx, names, times) {
 
   for (var i = 0; i < names.length; i++) {
     var barHeight = (HISTOGRAM_HEIGHT * times[i]) / maxTime;
+    var BAR_Y = MESSAGE_HEIGHT + (MESSAGE_GAP * 1) + (FONT_SIZE * 1) + FONT_GAP + (HISTOGRAM_HEIGHT - barHeight);
 
     if (names[i] === 'Вы') {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';
@@ -42,15 +49,15 @@ var renderResults = function (ctx, names, times) {
       ctx.fillStyle = 'rgba(0, 0, 255, ' + (Math.random() + 0.3) + ')';
     };
 
-    ctx.fillRect((CLOUD_X + BAR_GAP) + (BAR_WIDTH + BAR_GAP) * i, MESSAGE_HEIGHT + (MESSAGE_GAP * 1) + (FONT_SIZE * 1) + FONT_GAP + (HISTOGRAM_HEIGHT - barHeight), BAR_WIDTH, barHeight);
+    ctx.fillRect(BAR_X + ELEM_WIDTH * i, BAR_Y, BAR_WIDTH, barHeight);
     ctx.fillStyle = '#000';
-    ctx.fillText(Math.round(times[i]), (CLOUD_X + BAR_GAP) + (BAR_WIDTH + BAR_GAP) * i, MESSAGE_HEIGHT + (MESSAGE_GAP * 1) + (FONT_SIZE * 1));
-    ctx.fillText(names[i], (CLOUD_X + BAR_GAP) + (BAR_WIDTH + BAR_GAP) * i, MESSAGE_HEIGHT + (MESSAGE_GAP * 2) + (FONT_SIZE * 2) + HISTOGRAM_HEIGHT);
+    ctx.fillText(Math.round(times[i]), BAR_X + ELEM_WIDTH * i, TIME_Y);
+    ctx.fillText(names[i], BAR_X + ELEM_WIDTH * i, NAME_Y);
   };
 };
 
 window.renderStatistics = function (ctx, names, times) {
-  renderCloud(ctx, CLOUD_X + SHADOW_GAP, CLOUD_Y + SHADOW_GAP, 'rgba(0, 0, 0, 0.3)');
+  renderCloud(ctx, SHADOW_X, SHADOW_Y, 'rgba(0, 0, 0, 0.3)');
   renderCloud(ctx, CLOUD_X, CLOUD_Y, '#fff');
 
   ctx.fillStyle = '#000';
