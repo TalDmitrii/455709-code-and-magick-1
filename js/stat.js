@@ -30,8 +30,8 @@ var getMaxElement = function (array) {
   for (var i = 1; i < array.length; i++) {
     if (maxElement < array[i]) {
       maxElement = array[i];
-    };
-  };
+    }
+  }
 
   return maxElement;
 };
@@ -61,13 +61,13 @@ var renderResults = function (ctx, names, times) {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';
     } else {
       ctx.fillStyle = 'rgba(0, 0, 255, ' + getRandomColor(0.3) + ')';
-    };
+    }
 
     renderBar(ctx, BAR_X + ELEM_WIDTH * i, BAR_Y, BAR_WIDTH, barHeight);
     ctx.fillStyle = '#000';
     renderText(ctx, Math.round(times[i]), BAR_X + ELEM_WIDTH * i, TIME_Y);
     renderText(ctx, names[i], BAR_X + ELEM_WIDTH * i, NAME_Y);
-  };
+  }
 };
 
 window.renderStatistics = function (ctx, names, times) {
