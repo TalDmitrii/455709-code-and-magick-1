@@ -36,6 +36,20 @@ var getMaxElement = function (array) {
   return maxElement;
 };
 
+var getRandomColor = function (minOpacity) {
+  var color = Math.random() + minOpacity;
+
+  return color;
+};
+
+var renderBar = function (ctx, x, y, width, height) {
+  ctx.fillRect(x, y, width, height);
+};
+
+var renderText = function (ctx, value, x, y) {
+  ctx.fillText(value, x, y);
+};
+
 var renderResults = function (ctx, names, times) {
   var maxTime = getMaxElement(times);
 
@@ -46,13 +60,13 @@ var renderResults = function (ctx, names, times) {
     if (names[i] === 'Вы') {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';
     } else {
-      ctx.fillStyle = 'rgba(0, 0, 255, ' + (Math.random() + 0.3) + ')';
+      ctx.fillStyle = 'rgba(0, 0, 255, ' + getRandomColor(0.3) + ')';
     };
 
-    ctx.fillRect(BAR_X + ELEM_WIDTH * i, BAR_Y, BAR_WIDTH, barHeight);
+    renderBar(ctx, BAR_X + ELEM_WIDTH * i, BAR_Y, BAR_WIDTH, barHeight);
     ctx.fillStyle = '#000';
-    ctx.fillText(Math.round(times[i]), BAR_X + ELEM_WIDTH * i, TIME_Y);
-    ctx.fillText(names[i], BAR_X + ELEM_WIDTH * i, NAME_Y);
+    renderText(ctx, Math.round(times[i]), BAR_X + ELEM_WIDTH * i, TIME_Y);
+    renderText(ctx, names[i], BAR_X + ELEM_WIDTH * i, NAME_Y);
   };
 };
 
